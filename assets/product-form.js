@@ -44,6 +44,9 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            if(response.id === 45257334489255){
+              this.addAddOnProductToCart()
+            }
             if (response.status) {
               publish(PUB_SUB_EVENTS.cartError, {
                 source: 'product-form',
@@ -111,6 +114,32 @@ if (!customElements.get('product-form')) {
 
         if (errorMessage) {
           this.errorMessage.textContent = errorMessage;
+        }
+      }
+
+      addAddOnProductToCart() {
+        try {
+
+          let formData = {
+            'items': [
+              {
+                'id': 45222618366119,
+                'quantity': 1
+              }
+            ]
+          };
+
+           fetch('/cart/add.js', {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json',
+              "X-Requested-With":"XMLHttpRequest"
+            },
+            body: JSON.stringify(formData)
+          })
+        
+        } catch (error) {
+            console.log("ERROR in [addAddOnProductToCart] Function", error)
         }
       }
     }

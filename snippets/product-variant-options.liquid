@@ -101,10 +101,12 @@
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
+    {% if forloop.first %}
+      <option value="unselected" selected="selected" disabled>Unselected</option>
+    {% endif %}
     <option
       value="{{ value | escape }}"
       {% if option.selected_value == value %}
-        selected="selected"
       {% endif %}
       {% if swatch_value and picker_type == 'swatch_dropdown' %}
         data-option-swatch-value="{{ swatch_value }}"
