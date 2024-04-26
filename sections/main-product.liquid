@@ -560,6 +560,8 @@
                                     limit: block.settings.products_per_page
                                     offset: continue
                                   -%}
+                                  {%  assign hide_product_id = "8089595478183"  %} 
+                {% unless hide_product_id contains product.id %}
                                     <li>
                                       {% render 'card-product',
                                         card_product: product,
@@ -572,6 +574,7 @@
                                         horizontal_quick_add: true
                                       %}
                                     </li>
+                                  {% endunless %}
                                   {%- endfor -%}
                                 </ul>
                               </div>

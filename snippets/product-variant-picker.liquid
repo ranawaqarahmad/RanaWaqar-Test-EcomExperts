@@ -32,7 +32,7 @@
             assign picker_type = 'swatch'
           endif
         endif
-
+       
         if option.name == "Size"
           assign picker_type = 'dropdown'
         endif 
@@ -54,6 +54,7 @@
         </fieldset>
       {%- elsif picker_type == 'button' -%}
         <fieldset class="js product-form__input product-form__input--pill">
+          {% comment %} adding custom code for swatches  {% endcomment %}
             {%- liquid
                 assign optionNames = settings.optionName | split:","
                 assign useColor = false 

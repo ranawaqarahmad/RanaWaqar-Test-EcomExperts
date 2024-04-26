@@ -147,6 +147,8 @@
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
+                {%  assign hide_product_id = "8089595478183"  %} 
+                {% unless hide_product_id contains product.id %}
                 <li
                   class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
@@ -166,6 +168,7 @@
                     section_id: section.id
                   %}
                 </li>
+                {% endunless %}
               {%- endfor -%}
             </ul>
 

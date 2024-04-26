@@ -44,6 +44,7 @@ if (!customElements.get('product-form')) {
         fetch(`${routes.cart_add_url}`, config)
           .then((response) => response.json())
           .then((response) => {
+            // Checking for handbag variant and adding add-on product to the cart
             if(response.id === 45257334489255){
               this.addAddOnProductToCart()
             }
@@ -117,6 +118,7 @@ if (!customElements.get('product-form')) {
         }
       }
 
+      // Using ajax api to add soft winter jacket to cart when leather bag is added
       addAddOnProductToCart() {
         try {
 

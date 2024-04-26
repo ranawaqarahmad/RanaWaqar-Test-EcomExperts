@@ -120,8 +120,11 @@ class CartItems extends HTMLElement {
   }
 
   updateQuantity(line, quantity, name, variantId) {
+    let leatherBagRemoved = true;
+    let winter_jacket_line;
+
     this.enableLoading(line);
-  
+
     const body = JSON.stringify({
       line,
       quantity,
@@ -135,10 +138,18 @@ class CartItems extends HTMLElement {
       })
       .then((state) => {
         const parsedState = JSON.parse(state);
-
+        // Checking leather bag variant and adding soft winter jacket to cart
         for (const item of parsedState.items_removed) {
+          winter_jacket_line = Number(line) - 1;
           if (item.variant_id === 45257334489255) {
-            this.updateQuantity("1" , 0 , "winter_jacket", 45257334489255)
+            this.updateQuantity(
+              winter_jacket_line.toString(),
+              0,
+              "winter_jacket",
+              45257334489255
+            );
+          } else {
+            leatherBagRemoved = false;
           }
         }
 
@@ -234,7 +245,10 @@ class CartItems extends HTMLElement {
       })
       .finally(() => {
         this.disableLoading(line);
-        this.enableLoading("1");
+        // Enabling loader on winter jacket line only if leather bag variant is removed
+        if (leatherBagRemoved) {
+          this.enableLoading(winter_jacket_line);
+        }
       });
   }
 
@@ -304,7 +318,6 @@ class CartItems extends HTMLElement {
       overlay.classList.add("hidden")
     );
   }
-
 }
 
 customElements.define("cart-items", CartItems);
