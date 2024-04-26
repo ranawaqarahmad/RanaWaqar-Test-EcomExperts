@@ -101,10 +101,13 @@
       {{ label_unavailable }}
     </label>
   {%- elsif picker_type == 'dropdown' or picker_type == 'swatch_dropdown' -%}
+    {% comment %} adding first option unselected {% endcomment %}
+    {% if forloop.first %}
+      <option value="unselected" selected="selected" disabled>Unselected</option>
+    {% endif %}
     <option
       value="{{ value | escape }}"
       {% if option.selected_value == value %}
-        selected="selected"
       {% endif %}
       {% if swatch_value and picker_type == 'swatch_dropdown' %}
         data-option-swatch-value="{{ swatch_value }}"
@@ -118,3 +121,23 @@
     </option>
   {%- endif -%}
 {%- endfor -%}
+
+{% comment %} adding disabled attribute to add to cart button when option unselected is select {% endcomment %}
+{% if picker_type == 'dropdown' or picker_type == 'swatch_dropdown' %}
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const addToCartButton = document.querySelector('button[name="add"]');
+      const variantDropDown = document.querySelector('select[name="options[Size]"]')
+
+      if(variantDropDown.value === 'unselected'){
+        addToCartButton.setAttribute('disabled', 'disabled')
+      }
+
+      variantDropDown.addEventListener('change', function(){
+        addToCartButton.removeAttribute('disabled')
+      })
+    })
+
+  </script>
+{% endif %}
