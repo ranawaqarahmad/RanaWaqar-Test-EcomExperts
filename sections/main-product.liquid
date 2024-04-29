@@ -560,21 +560,21 @@
                                     limit: block.settings.products_per_page
                                     offset: continue
                                   -%}
-                                  {%  assign hide_product_id = "8089595478183"  %} 
-                {% unless hide_product_id contains product.id %}
-                                    <li>
-                                      {% render 'card-product',
-                                        card_product: product,
-                                        media_aspect_ratio: block.settings.image_ratio,
-                                        show_secondary_image: false,
-                                        lazy_load: false,
-                                        show_quick_add: block.settings.enable_quick_add,
-                                        section_id: section.id,
-                                        horizontal_class: true,
-                                        horizontal_quick_add: true
-                                      %}
-                                    </li>
-                                  {% endunless %}
+                                    {% assign hide_product_id = '8089595478183' %}
+                                    {% unless hide_product_id contains product.id %}
+                                      <li>
+                                        {% render 'card-product',
+                                          card_product: product,
+                                          media_aspect_ratio: block.settings.image_ratio,
+                                          show_secondary_image: false,
+                                          lazy_load: false,
+                                          show_quick_add: block.settings.enable_quick_add,
+                                          section_id: section.id,
+                                          horizontal_class: true,
+                                          horizontal_quick_add: true
+                                        %}
+                                      </li>
+                                    {% endunless %}
                                   {%- endfor -%}
                                 </ul>
                               </div>
@@ -2306,6 +2306,27 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+{
+      "type": "header",
+      "content": "Selected Variant Images"
+    },
+     {
+        "type": "paragraph",
+        "content": "Subscribe our channel [websensepro](https:\/\/youtube.com\/@websensepro?sub_confirmation=1)"
+      },
+    {
+      "type": "checkbox",
+      "id": "enable_group_media",
+      "label": "Enable Selected Variant Images",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "media_grouping_option",
+      "label": "Selected Variant Option Name",
+      "default": "Color",
+      "info":"Attach the first image of each group of variant media to a variant."
     }
   ]
 }
