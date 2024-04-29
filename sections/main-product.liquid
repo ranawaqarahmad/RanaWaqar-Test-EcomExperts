@@ -560,21 +560,21 @@
                                     limit: block.settings.products_per_page
                                     offset: continue
                                   -%}
-                                  {%  assign hide_product_id = "8089595478183"  %} 
-                {% unless hide_product_id contains product.id %}
-                                    <li>
-                                      {% render 'card-product',
-                                        card_product: product,
-                                        media_aspect_ratio: block.settings.image_ratio,
-                                        show_secondary_image: false,
-                                        lazy_load: false,
-                                        show_quick_add: block.settings.enable_quick_add,
-                                        section_id: section.id,
-                                        horizontal_class: true,
-                                        horizontal_quick_add: true
-                                      %}
-                                    </li>
-                                  {% endunless %}
+                                    {% assign hide_product_id = '8089595478183' %}
+                                    {% unless hide_product_id contains product.id %}
+                                      <li>
+                                        {% render 'card-product',
+                                          card_product: product,
+                                          media_aspect_ratio: block.settings.image_ratio,
+                                          show_secondary_image: false,
+                                          lazy_load: false,
+                                          show_quick_add: block.settings.enable_quick_add,
+                                          section_id: section.id,
+                                          horizontal_class: true,
+                                          horizontal_quick_add: true
+                                        %}
+                                      </li>
+                                    {% endunless %}
                                   {%- endfor -%}
                                 </ul>
                               </div>
