@@ -1027,6 +1027,15 @@ class VariantSelects extends HTMLElement {
     if (!modalContent) return;
     const newMediaModal = modalContent.querySelector(`[data-media-id="${this.currentVariant.featured_media.id}"]`);
     modalContent.prepend(newMediaModal);
+    
+    const variantValues = this.currentVariant.options
+    const mediaGallery = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`)
+    if (mediaGallery.hasAttribute("image-grouping-enabled")) {
+      mediaGallery.querySelectorAll('[data-image-group]').forEach(el => el.classList.add('hide-media'))
+      variantValues.forEach(value => { mediaGallery.querySelectorAll(`[data-image-group="${value}"]`).forEach(el => el.classList.remove('hide-media')) })
+      mediaGallery.querySelectorAll('slider-component').forEach(slider => { slider.initPages() })
+    }
+  
   }
 
   updateURL() {

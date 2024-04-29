@@ -138,19 +138,26 @@ class CartItems extends HTMLElement {
       })
       .then((state) => {
         const parsedState = JSON.parse(state);
-        // Checking leather bag variant and adding soft winter jacket to cart
-        for (const item of parsedState.items_removed) {
-          winter_jacket_line = Number(line) - 1;
-          if (item.variant_id === 45257334489255) {
-            this.updateQuantity(
-              winter_jacket_line.toString(),
-              0,
-              "winter_jacket",
-              45257334489255
-            );
-          } else {
-            leatherBagRemoved = false;
-          }
+        // Checking leather bag variant and removing soft winter jacket from cart
+
+        const softWinterJacketPresent = parsedState.items.some(
+          (item) => item.variant_id === 45222618366119
+        );
+
+        if (softWinterJacketPresent) {
+          winter_jacket_line =
+            parsedState.items_removed.findIndex(
+              (item) => item.variant_id === 45257334489255
+            ) + 1;
+          console.log("winter jacket line", winter_jacket_line);
+          this.updateQuantity(
+            winter_jacket_line.toString(),
+            0,
+            "winter_jacket",
+            45222618366119
+          );
+        } else {
+          leatherBagRemoved = false;
         }
 
         const quantityElement =
